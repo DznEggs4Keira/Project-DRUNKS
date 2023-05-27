@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 6931962396058786511}
   - component: {fileID: 4795013902234783809}
   - component: {fileID: 6239190455911969056}
-  - component: {fileID: 3248525590705215958}
+  - component: {fileID: 8531674342537069004}
   m_Layer: 6
-  m_Name: Enemies_Static
+  m_Name: Enemies_Pedestrians
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3248525590705215958
+--- !u!114 &8531674342537069004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7975243816585800601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e56f7a21fe85544a5f357a2c2daabb, type: 3}
+  m_Script: {fileID: 11500000, guid: 604726d9e8635db409c5cef2929f536a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
