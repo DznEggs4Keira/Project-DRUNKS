@@ -49,7 +49,7 @@ public class Enemies_STATIC : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.CompareTag("Player")) {
-            // Player will fall
+            Debug.Log("Player");
         }
     }
 }

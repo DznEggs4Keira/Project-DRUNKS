@@ -34,6 +34,7 @@ public class Enemies_PEDESTRIANS : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.CompareTag("Player")) {
             // Player will fall
+            // trigger the pedestrian to say some form of dialogue
         }
     }
 }
