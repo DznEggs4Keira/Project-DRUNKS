@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f; // Normal movement speed
     public float slowSpeed = 2f; // Slow moving speed
-    public float irregularityFactor = 0; // Irregularity of movement factor
 
     private Vector2 direction; // Direction of movement
 
@@ -26,61 +25,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float moveX = 0f;
-        float moveY = 0f;
-
-        // Diagonal at top Right and bottom Left
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
-        {
-            moveY = 0f;
-            moveX = 1f;
-        }
-        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
-        {
-            moveY = 1f;
-            moveX = 0f;
-        }
-
-        // Diagonal at top Left and bottom Right
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
-        {
-            moveY = -1f;
-            moveX = 0f;
-        }
-        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
-        {
-            moveY = 0f;
-            moveX = -1f;
-        }
-
-        // Up and Down
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveY = 0.5f;
-            moveX = 1f;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            moveY = -0.5f;
-            moveX = -1f;
-        }
-
-        // Right and Left
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveY = -1f;
-            moveX = 1f;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            moveY = 1f;
-            moveX = -1f;
-        }
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
 
         timerBarValue -= Time.deltaTime; // Timer to timeLapse
         timerDrunkMove -= Time.deltaTime; // Timer to timeLapse
         timeDrunkLapse -= Time.deltaTime; // Timer to timeLapse
-        
+
         if (timerBarValue <= 0) // Check timer and affect barValue
         {
             barValue -= 1f;
@@ -90,11 +41,11 @@ public class PlayerMovement : MonoBehaviour
         if (timerDrunkMove <= 0 && barValue >= 50) // Check timer and affect barValue
         {
             if (goRight)
-            {
+            {   
                 moveX = -1f;
                 moveY = 1.5f;
             }
-            else 
+            else
             {
                 moveX = 1f;
                 moveY = -1.5f;
@@ -108,17 +59,17 @@ public class PlayerMovement : MonoBehaviour
                 goRight = !goRight;
             }
         }
-        
+
         direction = new Vector2(moveX, moveY).normalized; // Normalized Move
 
         if (Input.GetKey(KeyCode.P)) // Temporaly reset barValue
         {
-           barValue = 100;
+            barValue = 100;
         }
-        
+
         if (Input.GetKey(KeyCode.L)) // Temporaly set barValue
         {
-           barValue = 0;
+            barValue = 0;
         }
     }
 
