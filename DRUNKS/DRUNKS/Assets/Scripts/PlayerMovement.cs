@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f; // Normal movement speed
     public float slowSpeed = 2f; // Slow moving speed
+    public float drunkShiftingSpeed = 2.5f; // the speed at which the player shifts left and right when drunk
 
     private Vector2 direction; // Direction of movement
 
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public float timerDrunkMove = 3f; // Timer for the Drunk Move
     public float timeDrunkLapse = 3.5f; // Lapse time in the drunk move
     public bool goRight = false; // Check for the last diagonal move
+
+    private bool drunkShifting = false;
 
     private Rigidbody2D Rb; // Rigidbody2D component reference
 
@@ -40,15 +43,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (timerDrunkMove <= 0 && barValue >= 50) // Check timer and affect barValue
         {
+            drunkShifting = true;
             if (goRight)
             {   
-                moveX = -1f;
-                moveY = 1.5f;
+                moveX = -0.5f;
+                moveY = 1f;
             }
             else
             {
-                moveX = 1f;
-                moveY = -1.5f;
+                moveX = 0.5f;
+                moveY = -1f;
             }
 
             if (timeDrunkLapse <= 0)
@@ -58,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
 
                 goRight = !goRight;
             }
+        } else {
+            drunkShifting = false;
         }
 
         direction = new Vector2(moveX, moveY).normalized; // Normalized Move
@@ -82,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Rb.velocity = direction * speed;
+            Rb.velocity = drunkShifting ? direction * drunkShiftingSpeed : direction * speed;
         }
     }
 }
