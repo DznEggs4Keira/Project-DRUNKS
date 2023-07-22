@@ -1,7 +1,7 @@
-E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Source\DRUNKS\DRUNKSCharacter.cpp
+E:\Work\Projects\Project-DRUNKS\DRUNKS\Source\DRUNKS\DRUNKSCharacter.cpp
 /I .
-/I E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\UnrealEditor\Inc\DRUNKS\UHT
-/I E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Source
+/I E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\UnrealEditor\Inc\DRUNKS\UHT
+/I E:\Work\Projects\Project-DRUNKS\DRUNKS\Source
 /I Runtime\TraceLog\Public
 /I Runtime\Core\Public
 /I Runtime
@@ -290,12 +290,12 @@ E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Source\DRUNKS\DRUNKSCharacter.cpp
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-/FI"E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
-/FI"E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\Definitions.DRUNKS.h"
-/Yu"E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
-/Fp"E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h.pch"
-/Fo"E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\DRUNKSCharacter.cpp.obj"
-/sourceDependencies E:\Work\Projects\Project-DRUNKS\DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\DRUNKSCharacter.cpp.dep.json
+/FI"E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
+/FI"E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\Definitions.DRUNKS.h"
+/Yu"E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
+/Fp"E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\DRUNKSEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h.pch"
+/Fo"E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\DRUNKSCharacter.cpp.obj"
+/sourceDependencies E:\Work\Projects\Project-DRUNKS\DRUNKS\Intermediate\Build\Win64\x64\UnrealEditor\Development\DRUNKS\DRUNKSCharacter.cpp.dep.json
 /Zc:inline
 /nologo
 /Oi
