@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\work\\projects\\project-drunks\\drunks\\drunks\\source\\drunks\\drunks.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\work\\projects\\project-drunks\\drunks\\drunks\\intermediate\\build\\win64\\x64\\drunkseditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "e:\\work\\projects\\project-drunks\\drunks\\drunks\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\drunks\\definitions.drunks.h",
+            "e:\\work\\projects\\project-drunks\\drunks\\drunks\\source\\drunks\\drunks.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
