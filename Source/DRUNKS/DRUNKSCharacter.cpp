@@ -16,6 +16,9 @@
 
 ADRUNKSCharacter::ADRUNKSCharacter()
 {
+	// Set this character to call Tick() every frame.
+    PrimaryActorTick.bCanEverTick = true;
+
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
@@ -81,10 +84,28 @@ void ADRUNKSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	MovementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
+    	if (timerDrunkMove <= 0 && barValue >= 50)
+    	{
+    	    DrunkShifting = true;
+
+    	    if (GoRight)
+    	    {
+    	        MovementVector = FVector2D(-0.5f, 1.0f);
+    	    }
+    	    else
+    	    {
+    	        MovementVector = FVector2D(0.5f, -1.0f);
+    	    }
+    	}
+    	else
+    	{
+    	    DrunkShifting = false;
+    	}
+
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
@@ -109,6 +130,50 @@ void ADRUNKSCharacter::Interact()
 void ADRUNKSCharacter::Throw()
 {
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Throwing")));
+}
+
+// Called every frame
+void ADRUNKSCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, FString::Printf(TEXT("Your Float Value: %f"), barValue));
+
+	// update player walking speed based on current state (Drunk/Sober)
+	GetCharacterMovement()->MaxWalkSpeed = (barValue < 50 ? MinWalkingSpeed : (DrunkShifting ? DrunkShiftingSpeed : MaxWalkingSpeed));
+
+	// Handle bar value timer.
+    timerBarValue -= DeltaTime;
+    timerDrunkMove -= DeltaTime;
+    timeDrunkLapse -= DeltaTime;
+
+	if (timerBarValue <= 0)
+    {
+        barValue -= 1.0f;
+        timerBarValue = 1.0f;
+    }
+
+	if (timeDrunkLapse <= 0 && timerDrunkMove <= 0 && barValue >= 50)
+    {
+        timerDrunkMove = 2.5f;
+        timeDrunkLapse = 3.7f;
+        GoRight = !GoRight;
+    }
+
+    // Temporarily reset barValue.
+	/*
+    if (InputComponent->IsInputKeyDown(EKeys::P))
+    {
+        barValue = 100.0f;
+    }
+
+    // Temporarily set barValue.
+    if (InputComponent->IsInputKeyDown(EKeys::L))
+    {
+        barValue = 0.0f;
+    }
+	*/
+
 }
 
 

@@ -33,8 +33,34 @@ class ADRUNKSCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
+protected: 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float MaxWalkingSpeed = 500.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float MinWalkingSpeed = 200.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float DrunkShiftingSpeed = 650.f;
+
+	bool DrunkShifting = false;
+	bool GoRight = false;
+
+	float barValue = 100.f;
+    float timerBarValue = 1.f;
+
+    float timerDrunkMove = 2.5f;
+    float timeDrunkLapse = 3.7f;
+
+	FVector2D MovementVector;
+
+
 public:
 	ADRUNKSCharacter();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 	
 
 protected:
