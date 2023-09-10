@@ -132,6 +132,10 @@ void ADRUNKSCharacter::Throw()
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Throwing")));
 }
 
+bool ADRUNKSCharacter::GetIsSober() {
+	return isSober;
+}
+
 // Called every frame
 void ADRUNKSCharacter::Tick(float DeltaTime)
 {
@@ -146,6 +150,12 @@ void ADRUNKSCharacter::Tick(float DeltaTime)
     timerBarValue -= DeltaTime;
     timerDrunkMove -= DeltaTime;
     timeDrunkLapse -= DeltaTime;
+
+	if(barValue < 50) {
+		isSober = true;
+	} else if(barValue >= 50) {
+		isSober = false;
+	}
 
 	if (timerBarValue <= 0)
     {

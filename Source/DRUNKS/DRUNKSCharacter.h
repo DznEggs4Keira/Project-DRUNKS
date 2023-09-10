@@ -55,12 +55,17 @@ protected:
 
 	FVector2D MovementVector;
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings)
+	bool isSober = false;
 
 public:
 	ADRUNKSCharacter();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	bool GetIsSober();
 	
 
 protected:
