@@ -27,18 +27,45 @@ class ADRUNKSCharacter : public ACharacter
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* JumpAction;
+	class UInputAction* InteractAction;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* LookAction;
+protected: 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float MaxWalkingSpeed = 500.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float MinWalkingSpeed = 200.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
+	float DrunkShiftingSpeed = 650.f;
+
+	bool DrunkShifting = false;
+	bool GoRight = false;
+
+	float barValue = 100.f;
+    float timerBarValue = 1.f;
+
+    float timerDrunkMove = 2.5f;
+    float timeDrunkLapse = 3.7f;
+
+	FVector2D MovementVector;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings)
+	bool isSober = false;
 
 public:
 	ADRUNKSCharacter();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	bool GetIsSober();
 	
 
 protected:
@@ -46,8 +73,11 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
-	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
+	// Called when interacting with an interactable
+	void Interact();
+
+	// Called when an interactable is held and thrown
+	void Throw();
 			
 
 protected:
@@ -56,11 +86,5 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
-
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
 
