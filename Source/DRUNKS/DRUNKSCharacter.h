@@ -42,9 +42,11 @@ protected:
 	float MinWalkingSpeed = 200.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
-	float DrunkShiftingSpeed = 650.f;
+	float DrunkShiftingSpeed = 150.f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = CustomMovementSettings)
 	bool DrunkShifting = false;
+
 	bool GoRight = false;
 
 	float barValue = 100.f;
@@ -56,7 +58,7 @@ protected:
 	FVector2D MovementVector;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = CustomMovementSettings)
 	bool isSober = false;
 
 public:
@@ -64,9 +66,6 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	bool GetIsSober();
-	
 
 protected:
 

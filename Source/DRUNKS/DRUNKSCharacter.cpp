@@ -94,15 +94,18 @@ void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 
     	    if (GoRight)
     	    {
-    	        MovementVector = FVector2D(-0.5f, 1.0f);
+    	        MovementVector = FVector2D(-0.25f, 0.5f);
     	    }
     	    else
     	    {
-    	        MovementVector = FVector2D(0.5f, -1.0f);
+    	        MovementVector = FVector2D(0.25f, -0.5f);
     	    }
+
+			GetCharacterMovement()->bOrientRotationToMovement = false;
     	}
     	else
     	{
+			GetCharacterMovement()->bOrientRotationToMovement = true;
     	    DrunkShifting = false;
     	}
 
@@ -130,10 +133,6 @@ void ADRUNKSCharacter::Interact()
 void ADRUNKSCharacter::Throw()
 {
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Throwing")));
-}
-
-bool ADRUNKSCharacter::GetIsSober() {
-	return isSober;
 }
 
 // Called every frame
