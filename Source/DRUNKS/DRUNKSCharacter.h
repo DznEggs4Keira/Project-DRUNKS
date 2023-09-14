@@ -42,12 +42,11 @@ protected:
 	float MinWalkingSpeed = 200.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
-	float DrunkShiftingSpeed = 150.f;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = CustomMovementSettings)
-	bool DrunkShifting = false;
+	float drunkShiftingSpeed = 150.f;
 
 	bool GoRight = false;
+	bool isDecelerating = false;
+	bool isAccelerating = false;
 
 	float barValue = 100.f;
     float timerBarValue = 1.f;
@@ -60,6 +59,9 @@ protected:
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = CustomMovementSettings)
 	bool isSober = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = CustomMovementSettings)
+	bool drunkShifting = false;
 
 public:
 	ADRUNKSCharacter();

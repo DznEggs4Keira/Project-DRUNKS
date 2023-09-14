@@ -84,29 +84,37 @@ void ADRUNKSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	MovementVector = Value.Get<FVector2D>();
+	if(!drunkShifting) {
+		MovementVector = Value.Get<FVector2D>();
+	}
+
+	if (timerDrunkMove <= 0 && barValue >= 50)
+    {
+		isDecelerating = true;
+	}
 
 	if (Controller != nullptr)
 	{
-    	if (timerDrunkMove <= 0 && barValue >= 50)
-    	{
-    	    DrunkShifting = true;
+		if(GetCharacterMovement()->MaxWalkSpeed <= 200) {
 
-    	    if (GoRight)
-    	    {
-    	        MovementVector = FVector2D(-0.25f, 0.5f);
-    	    }
-    	    else
-    	    {
-    	        MovementVector = FVector2D(0.25f, -0.5f);
-    	    }
+			drunkShifting = true;
+
+			if (GoRight)
+    		{
+    		    MovementVector = FVector2D(-0.25f, 0.5f);
+    		}
+    		else
+    		{
+    		    MovementVector = FVector2D(0.25f, -0.5f);
+    		}
 
 			GetCharacterMovement()->bOrientRotationToMovement = false;
-    	}
-    	else
+		}
+		 else
     	{
 			GetCharacterMovement()->bOrientRotationToMovement = true;
-    	    DrunkShifting = false;
+    	    drunkShifting = false;
+			isDecelerating = false;
     	}
 
 		// find out which way is forward
@@ -141,12 +149,19 @@ void ADRUNKSCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, FString::Printf(TEXT("Your Float Value: %f"), barValue));
-
-	// update player walking speed based on current state (Drunk/Sober)
-	GetCharacterMovement()->MaxWalkSpeed = (barValue < 50 ? MinWalkingSpeed : (DrunkShifting ? DrunkShiftingSpeed : MaxWalkingSpeed));
-
+	
 	// Handle bar value timer.
     timerBarValue -= DeltaTime;
+
+	if(isDecelerating) {
+		GetCharacterMovement()->MaxWalkSpeed -= 50.f * DeltaTime;
+		return;
+	}
+
+	// update player walking speed based on current state (Drunk/Sober)
+	GetCharacterMovement()->MaxWalkSpeed = (barValue < 50 ? MinWalkingSpeed : (drunkShifting ? drunkShiftingSpeed : MaxWalkingSpeed));
+
+	
     timerDrunkMove -= DeltaTime;
     timeDrunkLapse -= DeltaTime;
 
@@ -168,20 +183,6 @@ void ADRUNKSCharacter::Tick(float DeltaTime)
         timeDrunkLapse = 3.7f;
         GoRight = !GoRight;
     }
-
-    // Temporarily reset barValue.
-	/*
-    if (InputComponent->IsInputKeyDown(EKeys::P))
-    {
-        barValue = 100.0f;
-    }
-
-    // Temporarily set barValue.
-    if (InputComponent->IsInputKeyDown(EKeys::L))
-    {
-        barValue = 0.0f;
-    }
-	*/
 
 }
 
