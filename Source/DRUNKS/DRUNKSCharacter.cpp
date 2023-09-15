@@ -84,21 +84,14 @@ void ADRUNKSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	if(!drunkShifting) {
-		MovementVector = Value.Get<FVector2D>();
-	}
-
-	if (timerDrunkMove <= 0 && barValue >= 50)
-    {
-		isDecelerating = true;
-	}
+	MovementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		if(GetCharacterMovement()->MaxWalkSpeed <= 200) {
+		if(timerDrunkMove <= 0 && barValue >= 50) {
 
 			drunkShifting = true;
-
+			
 			if (GoRight)
     		{
     		    MovementVector = FVector2D(-0.25f, 0.5f);
@@ -114,7 +107,6 @@ void ADRUNKSCharacter::Move(const FInputActionValue& Value)
     	{
 			GetCharacterMovement()->bOrientRotationToMovement = true;
     	    drunkShifting = false;
-			isDecelerating = false;
     	}
 
 		// find out which way is forward
@@ -135,12 +127,12 @@ void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 
 void ADRUNKSCharacter::Interact()
 {
-	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Interact button pressed")));
+	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, FString::Printf(TEXT("Interact button pressed")));
 }
 
 void ADRUNKSCharacter::Throw()
 {
-	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Throwing")));
+	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, FString::Printf(TEXT("Throwing")));
 }
 
 // Called every frame
@@ -149,19 +141,29 @@ void ADRUNKSCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, FString::Printf(TEXT("Your Float Value: %f"), barValue));
-	
-	// Handle bar value timer.
-    timerBarValue -= DeltaTime;
-
-	if(isDecelerating) {
-		GetCharacterMovement()->MaxWalkSpeed -= 50.f * DeltaTime;
-		return;
-	}
 
 	// update player walking speed based on current state (Drunk/Sober)
-	GetCharacterMovement()->MaxWalkSpeed = (barValue < 50 ? MinWalkingSpeed : (drunkShifting ? drunkShiftingSpeed : MaxWalkingSpeed));
+	GetCharacterMovement()->MaxWalkSpeed = (
+		barValue < 50 ? 
+		(
+			GetCharacterMovement()->MaxWalkSpeed <= MinWalkingSpeed ? 
+			MinWalkingSpeed : GetCharacterMovement()->MaxWalkSpeed - 150 * DeltaTime
+		) : 
+		(
+			drunkShifting ? 
+			(
+				GetCharacterMovement()->MaxWalkSpeed <= drunkShiftingSpeed ? 
+				drunkShiftingSpeed : GetCharacterMovement()->MaxWalkSpeed - 200 * DeltaTime
+			) :
+			(
+				GetCharacterMovement()->MaxWalkSpeed >= MaxWalkingSpeed ? 
+				MaxWalkingSpeed : GetCharacterMovement()->MaxWalkSpeed + 150 * DeltaTime
+			)
+		)
+	);
 
-	
+	// Handle bar value timer.
+    timerBarValue -= DeltaTime;
     timerDrunkMove -= DeltaTime;
     timeDrunkLapse -= DeltaTime;
 

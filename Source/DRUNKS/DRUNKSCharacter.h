@@ -42,11 +42,9 @@ protected:
 	float MinWalkingSpeed = 200.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomMovementSettings, meta = (AllowPrivateAccess = "true"))
-	float drunkShiftingSpeed = 150.f;
+	float drunkShiftingSpeed = 350.f;
 
 	bool GoRight = false;
-	bool isDecelerating = false;
-	bool isAccelerating = false;
 
 	float barValue = 100.f;
     float timerBarValue = 1.f;
