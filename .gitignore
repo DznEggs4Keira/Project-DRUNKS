@@ -1,16 +1,5 @@
-# Visual Studio code ignores
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
+# Visual Studio 2015 user specific files
+.vs/
 
 # Compiled Object files
 *.slo
@@ -58,7 +47,7 @@ SourceArt/**/*.tga
 
 # Binary Files
 Binaries/*
-Plugins/*/Binaries/*
+Plugins/**/Binaries/*
 
 # Builds
 Build/*
@@ -79,7 +68,7 @@ Saved/*
 
 # Compiled source files for the engine to use
 Intermediate/*
-Plugins/*/Intermediate/*
+Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
