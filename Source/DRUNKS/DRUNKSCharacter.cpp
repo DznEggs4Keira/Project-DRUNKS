@@ -43,6 +43,12 @@ ADRUNKSCharacter::ADRUNKSCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	// Initialize the inventory component
+	InventoryComponent = CreateDefaultSubobject<UDRUNKSInventoryComponent>(TEXT("InventoryComponent"));
+
+	// Initialize the interaction component
+	InteractionComponent = CreateDefaultSubobject<UDRUNKSInteractionComponent>(TEXT("InteractionComponent"));
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -72,7 +78,7 @@ void ADRUNKSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 		
 		//Interacting
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &ADRUNKSCharacter::Interact);
-		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &ADRUNKSCharacter::Throw);
+		//EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &ADRUNKSCharacter::Throw);
 
 		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADRUNKSCharacter::Move);
@@ -128,6 +134,14 @@ void ADRUNKSCharacter::Move(const FInputActionValue& Value)
 void ADRUNKSCharacter::Interact()
 {
 	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, FString::Printf(TEXT("Interact button pressed")));
+	if (InteractionComponent)
+	{
+		AActor* Interactable = InteractionComponent->GetInteractableInReach();
+		if (Interactable)
+		{
+			InteractionComponent->ExecuteInteraction(Interactable, this);
+		}
+	}
 }
 
 void ADRUNKSCharacter::Throw()
@@ -140,7 +154,7 @@ void ADRUNKSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, FString::Printf(TEXT("Your Float Value: %f"), barValue));
+	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, FString::Printf(TEXT("Drunk Value: %f"), barValue));
 
 	// update player walking speed based on current state (Drunk/Sober)
 	GetCharacterMovement()->MaxWalkSpeed = (
